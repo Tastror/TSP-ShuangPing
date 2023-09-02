@@ -44,7 +44,7 @@ engine:
     - script_translator
   filters:
     - uniquifier
-    # - simplifier
+    - simplifier
 
 # 将【拼音】转为【输入串】
 speller:
@@ -315,7 +315,7 @@ punctuator:
     "#" : "#"
     "@" : "@"
     "=": "="
-    
+
 key_binder:
   import_preset: default
 
