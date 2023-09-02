@@ -97,8 +97,8 @@ speller:
     - xform/^yong$/YT/  # ^iong --> YT
     - xform/i?ong$/T/  # iong, ong --> T
     ### ~e
-    # seems nothing  # e, ê --> E
-    ### ~en
+    # seems nothing  # e --> E
+    ### ~en (üin)
     - xform/^yun$/YP/  # ^üin --> YP
     - xform/^wen$/WP/  # ^uen --> WP
     - xform/un$/P/  # üin, uen --> P
@@ -111,17 +111,16 @@ speller:
     - xform/ie$/C/  # iê --> C
     - xform/^yue$/YX/  # ^üê --> YX
     - xform/[uv]e$/X/  # üê --> X
-    # (ê see e)
     ### ~êi
     - xform/^wei$/WV/  # ^uêi --> WV
     - xform/ui$/V/  # uêi --> V
     - xform/ei$/Y/  # êi --> Y
-    ### ~i, ɿ, ʅ
+    ### ~i, ɿ, ʅ, er
     # seems nothing  # ^i --> YI
     # seems nothing  # i, ɿ, ʅ --> I
     - xform/er$/I/  # er --> I
     ### ~in
-    # (üin see uen)
+    # (üin --> ~en)
     # seems nothing  # ^in --> YH
     - xform/in$/H/  # in --> H
     ### ~ing
@@ -132,7 +131,10 @@ speller:
     ### ~ü
     - xform/^yu$/YV/  # ^ü --> YV
     - xform/^([jqx])u$/$1V/  # ü --> V
-    ### ~er
+    ### ~m, n, ng
+    - xform/^m$/OH/  # ^m --> OH
+    - xform/^n$/ON/  # ^n --> ON
+    - xform/^ng$/OB/  # ^ng --> OB
     # 转小写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 
@@ -147,10 +149,7 @@ translator:
     - "xform/(^|[ '])V/$1ch/"
     - "xform/(^|[ '])E/$1sh/"
     # 韵母
-    # 组一：BPMF
-    # 组二：DTNL
-    # 组三：GKH ZCS hR
-    # 组四：JQX
+    ### ~a
     - xform/WQ/^ua/  # WQ --> ^ua
     - xform/YQ/^ia/  # YQ --> ^ia
     - xform/([GKHZCShR])Q/$1ua/  # Q --> ua
@@ -160,8 +159,9 @@ translator:
     - xform/WX/^uai/  # WX --> ^uai
     - xform/([GKHZCShR])X/$1uai/  # X --> uai
     - xform/(\w)Z/$1ai/  # ai --> Z
-    ### ~au
+    ### ~au (ng)
     - xform/YB/^iau/  # YB --> iau
+    - xform/OB/^ng/  # OB --> ^ng
     - xform/(\w)B/$1iau/  # B --> iau
     - xform/(\w)W/$1au/  # W --> au
     ### ~an, ên, aên
@@ -183,8 +183,9 @@ translator:
     - xform/YO/^io/  # YO --> ^io
     - xform/([BPMFDTNLGKHZCShR])O/$1uo/  # O --> uo
     - xform/(\w)O/$1o/  # O --> o
-    ### ~ou
+    ### ~ou (n)
     - xform/YN/^iou/  # YN --> ^iou
+    - xform/ON/^n/  # ON --> ^n
     - xform/(\w)N/$1iou/  # N --> iou
     - xform/(\w)M/$1ou/  # M --> ou
     ### ~ong
@@ -193,7 +194,7 @@ translator:
     - xform/(\w)T/$1ong/  # T --> ong
     ### ~e
     - xform/(\w)E/$1e/  # E --> e
-    ### ~en
+    ### ~en (üin)
     - xform/YP/^üin/  # YP --> ^üin
     - xform/WP/^uen/  # WP --> ^uen
     - xform/([JQX])P/$1üin/  # P --> üin
@@ -207,7 +208,7 @@ translator:
     - xform/(\w)C/$1iê/  # C --> iê
     - xform/YX/^üê/  # YX --> ^üê
     - xform/(\w)X/$1üê/  # X --> üê
-    ### ~êi
+    ### ~êi (ü)
     - xform/YV/^ü/  # YV --> ^ü
     - xform/WV/^uêi/  # WV --> ^uêi
     - xform/([NLJQX])V/$1ü/  # V --> ü
@@ -219,22 +220,30 @@ translator:
     - xform/([ZCS])I/$1ɿ/  # I --> ɿ
     - xform/([hR])I/$1ʅ/  # I --> ʅ
     - xform/(\w)I/$1i/  # I --> i
-    ### ~in
-    # (üin see uen)
+    ### ~in (m)
+    # (üin --> ~en)
     - xform/YH/^in/  # H --> in
+    - xform/OH/^m/  # OH --> ^m
     - xform/(\w)H/$1in/  # H --> in
     ### ~ing
     - xform/YL/^ing/  # YL --> ^ing
     - xform/(\w)L/$1ing/  # L --> ing
     ### ~u
     - xform/WU/^u/  # WU --> ^u
+    - xform/(\w)U/$1u/  # U --> u
+    ### ~ü
+    # (ü --> ~êi)
+    ### ~m, n, ng
+    # (m --> ~in)
+    # (n --> ~ou)
+    # (ng --> ~au)
     # 零声母
     - xform/O([\wê])/^$1/
     # 首字输入
     - xform/(^|[ '])W/^(合)/
     - xform/(^|[ '])Y/^(齐撮)/
     - xform/(^|[ '])O/^(开)/
-    # 小写
+    # 声母大写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 
 # 将【拼音】转为【可视串】
@@ -270,7 +279,6 @@ reverse_lookup:
     - xform/^wen$/^uen/
     - xform/^([jqx])un$/$1üin/
     - xform/^(\w)un$/$1uen/
-    - xform/^er$/^er/
     - xform/^weng$/^ueng/
     - xform/^ye$/yê/
     - xform/^(\w)ie$/$1iê/
@@ -280,15 +288,17 @@ reverse_lookup:
     - xform/^(\w)ui$/$1uêi/
     - xform/^(\w)ei$/$1êi/
     - xform/^yi$/^i/
-    - xform/^yin$/^in/
-    - xform/^ying$/^ing/
     - xform/^([zcs])i$/$1ɿ/
     - xform/^([zcs]h|r)i$/$1ʅ/
+    - xform/^er$/^er/
+    - xform/^yin$/^in/
+    - xform/^ying$/^ing/
     - xform/^wu$/^u/
     - xform/^yu$/^ü/
     - xform/^([nl])v$/$1ü/
     - xform/^([jqx])u$/$1ü/
     - xform/^([aoe].*)$/^$1/
+    - xform/^(m|n|ng)$/^$1/
 
 punctuator:
   import_preset: symbols
