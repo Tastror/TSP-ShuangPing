@@ -208,7 +208,6 @@ translator:
     - xform/(\w)C/$1iê/  # C --> iê
     - xform/YX/^üê/  # YX --> ^üê
     - xform/(\w)X/$1üê/  # X --> üê
-    # (ê see e)
     ### ~êi
     - xform/YV/^ü/  # YV --> ^ü
     - xform/WV/^uêi/  # WV --> ^uêi
