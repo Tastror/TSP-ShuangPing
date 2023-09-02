@@ -119,6 +119,7 @@ speller:
     ### ~i, ɿ, ʅ
     # seems nothing  # ^i --> YI
     # seems nothing  # i, ɿ, ʅ --> I
+    - xform/er$/I/  # er --> I
     ### ~in
     # (üin see uen)
     # seems nothing  # ^in --> YH
@@ -132,7 +133,6 @@ speller:
     - xform/^yu$/YV/  # ^ü --> YV
     - xform/^([jqx])u$/$1V/  # ü --> V
     ### ~er
-    - xform/er$/N/  # er --> N
     # 转小写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 
@@ -185,7 +185,6 @@ translator:
     - xform/(\w)O/$1o/  # O --> o
     ### ~ou
     - xform/YN/^iou/  # YN --> ^iou
-    - xform/ON/^er/  # ON --> ^er
     - xform/(\w)N/$1iou/  # N --> iou
     - xform/(\w)M/$1ou/  # M --> ou
     ### ~ong
@@ -214,8 +213,9 @@ translator:
     - xform/([NLJQX])V/$1ü/  # V --> ü
     - xform/(\w)V/$1uêi/  # V --> uêi
     - xform/(\w)Y/$1êi/  # Y --> êi
-    ### ~i, ɿ, ʅ
+    ### ~i, ɿ, ʅ, er
     - xform/YI/^i/ # YI --> ^i
+    - xform/OI/^er/  # OI --> ^er
     - xform/([ZCS])I/$1ɿ/  # I --> ɿ
     - xform/([hR])I/$1ʅ/  # I --> ʅ
     - xform/(\w)I/$1i/  # I --> i
