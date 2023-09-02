@@ -66,9 +66,8 @@ speller:
     - xform/[iu]a$/Q/  # ia, ua --> Q
     # seems nothing  # a --> A
     ### ~ai
-    # seems nothing  # ^ing --> YL
-    - xform/^wai$/WL/  # ^uai --> WL
-    - xform/ing$|uai$/L/  # ing, uai --> L
+    - xform/^wai$/WX/  # ^uai --> WX
+    - xform/uai$/L/  # uai --> X
     - xform/ai$/Z/  # ai --> Z
     ### ~au
     - xform/^yao$/YB/  # ^iau --> YB
@@ -92,7 +91,7 @@ speller:
     - xform/uo$/O/  # o, io, uo --> O
     ### ~ou
     - xform/^you$/YN/  # ^iou --> YN
-    - xform/er$|iu$/N/  # iou, er --> N
+    - xform/iu$/N/  # iou --> N
     - xform/ou$/M/  # ou --> M
     ### ~ong
     - xform/^yong$/YT/  # ^iong --> YT
@@ -114,10 +113,8 @@ speller:
     - xform/[uv]e$/X/  # üê --> X
     # (ê see e)
     ### ~êi
-    - xform/^yu$/YV/  # ^ü --> YV
     - xform/^wei$/WV/  # ^uêi --> WV
-    - xform/^([jqx])u$/$1V/  # ü, uêi --> V
-    - xform/ui$/V/  # ü, uêi --> V
+    - xform/ui$/V/  # uêi --> V
     - xform/ei$/Y/  # êi --> Y
     ### ~i, ɿ, ʅ
     # seems nothing  # ^i --> YI
@@ -127,13 +124,15 @@ speller:
     # seems nothing  # ^in --> YH
     - xform/in$/H/  # in --> H
     ### ~ing
-    # (ing see uai)
+    # seems nothing  # ^ing --> YL
+    - xform/ing$/L/  # ing --> L
     ### ~u
     # seems nothing  # u --> U
     ### ~ü
-    # (v see uêi)
+    - xform/^yu$/YV/  # ^ü --> YV
+    - xform/^([jqx])u$/$1V/  # ü --> V
     ### ~er
-    # (er see iou)
+    - xform/er$/N/  # er --> N
     # 转小写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 
@@ -158,10 +157,8 @@ translator:
     - xform/(\w)Q/$1ia/  # Q --> ia
     - xform/(\w)A/$1a/  # A --> a
     ### ~ai
-    - xform/WL/^uai/  # WL --> ^uai
-    - xform/YL/^ing/  # YL --> ^ing
-    - xform/([GKHZCShR])L/$1uai/  # L --> uai
-    - xform/(\w)L/$1ing/  # L --> ing
+    - xform/WX/^uai/  # WX --> ^uai
+    - xform/([GKHZCShR])X/$1uai/  # X --> uai
     - xform/(\w)Z/$1ai/  # ai --> Z
     ### ~au
     - xform/YB/^iau/  # YB --> iau
@@ -227,6 +224,9 @@ translator:
     # (üin see uen)
     - xform/YH/^in/  # H --> in
     - xform/(\w)H/$1in/  # H --> in
+    ### ~ing
+    - xform/YL/^ing/  # YL --> ^ing
+    - xform/(\w)L/$1ing/  # L --> ing
     ### ~u
     - xform/WU/^u/  # WU --> ^u
     # 零声母
