@@ -257,66 +257,62 @@ reverse_lookup:
     - xlit/hspnz/一丨丿丶乙/
   allow_erase_comment: true
   comment_format:
-    - xform/^wa$/^ua/
-    - xform/^ya$/^ia/
-    - xform/^wai$/^uai/
-    - xform/^yao$/^iau/
-    - xform/^(\w)ao$/$1au/
-    - xform/^wan$/^uan/
-    - xform/^yuan$/^üaên/
-    - xform/^([jqx])uan$/$1üaên/
-    - xform/^yan$/^iên/
-    - xform/^(\w)ian$/$1iên/
-    - xform/^wang$/^uang/
-    - xform/^yang$/^iang/
-    - xform/^yo$/^io/
-    - xform/^wo$/^uo/
-    - xform/^([BPMF])o$/$1uo/
-    - xform/^you$/^iou/
-    - xform/^(\w)iu$/$1iou/
-    - xform/^yong$/^iong/
-    - xform/^yun$/^üin/
-    - xform/^wen$/^uen/
-    - xform/^([jqx])un$/$1üin/
-    - xform/^(\w)un$/$1uen/
-    - xform/^weng$/^ueng/
-    - xform/^ye$/yê/
-    - xform/^(\w)ie$/$1iê/
-    - xform/^yue$/^üê/
-    - xform/^(\w)[uv]e$/$1üê/
-    - xform/^wei$/^uêi/
-    - xform/^(\w)ui$/$1uêi/
-    - xform/^(\w)ei$/$1êi/
-    - xform/^yi$/^i/
-    - xform/^([zcs])i$/$1ɿ/
-    - xform/^([zcs]h|r)i$/$1ʅ/
-    - xform/^er$/^er/
-    - xform/^yin$/^in/
-    - xform/^ying$/^ing/
-    - xform/^wu$/^u/
-    - xform/^yu$/^ü/
-    - xform/^([nl])v$/$1ü/
-    - xform/^([jqx])u$/$1ü/
-    - xform/^([aoe].*)$/^$1/
-    - xform/^(m|n|ng)$/^$1/
+    - xform/(^|[ '])wa($|[ '])/$1^ua$2/
+    - xform/(^|[ '])ya($|[ '])/$1^ia$2/
+    - xform/(^|[ '])wai($|[ '])/$1^uai$2/
+    - xform/(^|[ '])yao($|[ '])/$1^iau$2/
+    - xform/(^|[ '])(\w)ao($|[ '])/$1$2au$3/
+    - xform/(^|[ '])wan($|[ '])/$1^uan$2/
+    - xform/(^|[ '])yuan($|[ '])/$1^üaên$2/
+    - xform/(^|[ '])([jqx])uan($|[ '])/$1$2üaên$3/
+    - xform/(^|[ '])yan($|[ '])/$1^iên$2/
+    - xform/(^|[ '])(\w)ian($|[ '])/$1$2iên$3/
+    - xform/(^|[ '])wang($|[ '])/$1^uang$2/
+    - xform/(^|[ '])yang($|[ '])/$1^iang$2/
+    - xform/(^|[ '])yo($|[ '])/$1^io$2/
+    - xform/(^|[ '])wo($|[ '])/$1^uo$2/
+    - xform/(^|[ '])([BPMF])o($|[ '])/$1$2uo$3/
+    - xform/(^|[ '])you($|[ '])/$1^iou$2/
+    - xform/(^|[ '])(\w)iu($|[ '])/$1$2iou$3/
+    - xform/(^|[ '])yong($|[ '])/$1^iong$2/
+    - xform/(^|[ '])yun($|[ '])/$1^üin$2/
+    - xform/(^|[ '])wen($|[ '])/$1^uen$2/
+    - xform/(^|[ '])([jqx])un($|[ '])/$1$2üin$3/
+    - xform/(^|[ '])(\w)un($|[ '])/$1$2uen$3/
+    - xform/(^|[ '])weng($|[ '])/$1^ueng$2/
+    - xform/(^|[ '])ye($|[ '])/$1yê$2/
+    - xform/(^|[ '])(\w)ie($|[ '])/$1$2iê$3/
+    - xform/(^|[ '])yue($|[ '])/$1^üê$2/
+    - xform/(^|[ '])(\w)[uv]e($|[ '])/$1$2üê$3/
+    - xform/(^|[ '])wei($|[ '])/$1^uêi$2/
+    - xform/(^|[ '])(\w)ui($|[ '])/$1$2uêi$3/
+    - xform/(^|[ '])(\w)ei($|[ '])/$1$2êi$3/
+    - xform/(^|[ '])yi($|[ '])/$1^i$2/
+    - xform/(^|[ '])([zcs])i($|[ '])/$1$2ɿ$3/
+    - xform/(^|[ '])([zcs]h|r)i($|[ '])/$1$2ʅ$3/
+    - xform/(^|[ '])er($|[ '])/$1^er$2/
+    - xform/(^|[ '])yin($|[ '])/$1^in$2/
+    - xform/(^|[ '])ying($|[ '])/$1^ing$2/
+    - xform/(^|[ '])wu($|[ '])/$1^u$2/
+    - xform/(^|[ '])yu($|[ '])/$1^ü$2/
+    - xform/(^|[ '])([nl])v($|[ '])/$1$2ü$3/
+    - xform/(^|[ '])([jqx])u($|[ '])/$1$2ü$3/
+    - xform/(^|[ '])([aoe].*)($|[ '])/$1^$2$3/
+    - xform/(^|[ '])(m|n|ng)($|[ '])/$1^$2$3/
 
 punctuator:
   import_preset: symbols
   full_shape:
     "`": "｀"
     "\\" : "、"
-    "/" : "／"
     "#" : "＃"
     "@" : "＠"
-    "*" : "＊"
     "=": "＝"
   half_shape:
     "`": "`"
     "\\" : "、"
-    "/" : "/"
     "#" : "#"
     "@" : "@"
-    "*" : "*"
     "=": "="
     
 key_binder:
