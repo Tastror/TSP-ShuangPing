@@ -10,4 +10,4 @@
 
 ## Todo
 
-- [ ] 将 y + xx 更改为 y + ixx 和 y + üxx，w + xx 更改为 w + uxx，以避免 ê, ên 单列为韵母
+- [x] 将 y + xx 更改为 y + ixx 和 y + üxx，w + xx 更改为 w + uxx，以避免 ê, ên 单列为韵母
