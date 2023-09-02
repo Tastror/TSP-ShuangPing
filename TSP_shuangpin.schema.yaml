@@ -67,7 +67,7 @@ speller:
     # seems nothing  # a --> A
     ### ~ai
     - xform/^wai$/WX/  # ^uai --> WX
-    - xform/uai$/L/  # uai --> X
+    - xform/uai$/X/  # uai --> X
     - xform/ai$/Z/  # ai --> Z
     ### ~au
     - xform/^yao$/YB/  # ^iau --> YB
