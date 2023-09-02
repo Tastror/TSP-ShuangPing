@@ -53,8 +53,6 @@ speller:
   algebra:
     # 原来码表中有xx作为不明的字
     - erase/^xx$/
-    # ju -> jv, jue -> jve
-    - xform/^([jqx])u(e?)$/$1v$2/
     # 声母
     - xform/^zh/A/
     - xform/^ch/V/
@@ -118,6 +116,7 @@ speller:
     ### ~êi
     - xform/^yu$/YV/  # ^ü --> YV
     - xform/^wei$/WV/  # ^uêi --> WV
+    - xform/^([jqx])u$/$1V/  # ü, uêi --> V
     - xform/ui$/V/  # ü, uêi --> V
     - xform/ei$/Y/  # êi --> Y
     ### ~i, ɿ, ʅ
