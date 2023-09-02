@@ -92,7 +92,7 @@ speller:
     ### ~ou
     - xform/^you$/YN/  # ^iou --> YN
     - xform/iu$/N/  # iou --> N
-    - xform/ou$/M/  # ou --> M
+    - xform/ou$/H/  # ou --> H
     ### ~ong
     - xform/^yong$/YT/  # ^iong --> YT
     - xform/i?ong$/T/  # iong, ong --> T
@@ -121,8 +121,8 @@ speller:
     - xform/er$/I/  # er --> I
     ### ~in
     # (üin --> ~en)
-    # seems nothing  # ^in --> YH
-    - xform/in$/H/  # in --> H
+    # seems nothing  # ^in --> YM
+    - xform/in$/M/  # in --> M
     ### ~ing
     # seems nothing  # ^ing --> YL
     - xform/ing$/L/  # ing --> L
@@ -132,7 +132,7 @@ speller:
     - xform/^yu$/YV/  # ^ü --> YV
     - xform/^([jqx])u$/$1V/  # ü --> V
     ### ~m, n, ng
-    - xform/^m$/OH/  # ^m --> OH
+    - xform/^m$/OM/  # ^m --> OM
     - xform/^n$/ON/  # ^n --> ON
     - xform/^ng$/OB/  # ^ng --> OB
     # 转小写
@@ -187,7 +187,7 @@ translator:
     - xform/YN/^iou/  # YN --> ^iou
     - xform/ON/^n/  # ON --> ^n
     - xform/(\w)N/$1iou/  # N --> iou
-    - xform/(\w)M/$1ou/  # M --> ou
+    - xform/(\w)H/$1ou/  # H --> ou
     ### ~ong
     - xform/YT/^iong/  # YT --> ^iong
     - xform/([JQX])T/$1iong/  # T --> iong
@@ -222,9 +222,9 @@ translator:
     - xform/(\w)I/$1i/  # I --> i
     ### ~in (m)
     # (üin --> ~en)
-    - xform/YH/^in/  # H --> in
-    - xform/OH/^m/  # OH --> ^m
-    - xform/(\w)H/$1in/  # H --> in
+    - xform/YM/^in/  # M --> in
+    - xform/OM/^m/  # OM --> ^m
+    - xform/(\w)M/$1in/  # M --> in
     ### ~ing
     - xform/YL/^ing/  # YL --> ^ing
     - xform/(\w)L/$1ing/  # L --> ing
