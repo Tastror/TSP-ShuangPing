@@ -52,4 +52,4 @@
 | weng | wueng | 真 | |
 | yng  | ying  | 伪8 | 原因：介音+n/ng |
 
-（以上均不考虑 ÿ->y、ü->u、ê->e、uêi->ui、uen->un、au->ao、üin->ün 的简省）
+（以上均不考虑 ÿ->y、ü->u、ê->e、uêi->ui、i(y)ên->i(y)an、uen->un、au->ao、üin->ün 的简省）
