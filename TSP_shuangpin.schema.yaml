@@ -46,9 +46,42 @@ engine:
     - uniquifier
     - simplifier
 
+
+# 注意，在 y w (ÿ) 开头的内容中，有两种罗马字方案，分别是
+#   [真开头] 鸭 ya = y + a, 音 yn = y + n，温 wen = w + en，晕 ÿn = ÿ + n；（介音直接形变作开头）
+#   [伪开头] 鸭 yia = y + ia, 音 yin = y + in，温 wuen = w + uen，晕 ÿün = ÿ + ün。（一个形式字符和一个真介音）
+#   规则：对于 i u ü，[真开头] 方案用 y w ÿ 直接替代三者，[伪开头] 方案在最前面分别加 y w ÿ 的形式字符
+# TSP 仅采用 [伪开头] 方案；拼音部分采用 [真开头] 方案，部分采用 [伪开头] 方案。
+
+# 真开头  伪开头(TSP)  拼音的选择（不考虑 ÿ->y、ü->u、ê->e、uêi->ui、uen->un、au->ao、üin->ün 的简省）
+# ya    yia   真
+# wa    wua   真
+# yo    yio   真
+# wo    wuo   真
+# yê    yiê   真
+# ÿê    ÿüê   伪 1  原因：含有 ü 的均使用 [伪开头] 方案
+# y     yi    伪 2  原因：独体
+# w     wu    伪 3  原因：独体
+# ÿ     ÿü    伪 4  原因：含有 ü 的均使用 [伪开头] 方案；独体
+# wai   wuai  真
+# wêi   wuêi  真
+# yau   yiau  真
+# you   yiou  真
+# wan   wuan  真
+# ÿan   ÿüan  伪 5  原因：含有 ü 的均使用 [伪开头] 方案
+# wen   wuen  真
+# yên   yiên  真
+# yn    yin   伪 6  原因：介音+n/ng
+# ÿin   ÿüin  伪 7  原因：含有 ü 的均使用 [伪开头] 方案；介音+n/ng
+# yang  yiang 真
+# wang  wuang 真
+# yong  yiong 真
+# weng  wueng 真
+# yng   ying  伪 8  原因：介音+n/ng
+
 # 将【拼音】转为【输入串】
 speller:
-  alphabet: zyxwvutsrqponmlkjihgfedcba
+  alphabet: abcdefghijklmnopqrstuvwxyz
   delimiter: " '"
   algebra:
     # 原来码表中有xx作为不明的字
@@ -61,80 +94,80 @@ speller:
     - xform/^([aoe].*)$/O$1/
     # 韵母
     ### ~a
-    - xform/^ya$/YQ/  # ^ia --> YQ
-    - xform/^wa$/WQ/  # ^ua --> WQ
+    - xform/^ya$/YQ/  # yia --> YQ
+    - xform/^wa$/WQ/  # wua --> WQ
     - xform/[iu]a$/Q/  # ia, ua --> Q
     # seems nothing  # a --> A
     ### ~ai
-    - xform/^wai$/WX/  # ^uai --> WX
+    - xform/^wai$/WX/  # wuai --> WX
     - xform/uai$/X/  # uai --> X
     - xform/ai$/Z/  # ai --> Z
     ### ~au
-    - xform/^yao$/YB/  # ^iau --> YB
+    - xform/^yao$/YB/  # yiau --> YB
     - xform/iao$/B/  # iau --> B
     - xform/ao$/W/  # au --> W
-    ### ~an, ên, aên
-    # seems nothing  # ^üaên --> YG
-    - xform/^wan$/WG/  # ^uan --> WG
-    - xform/uan$/G/  # üaên, uan --> G
-    - xform/^yan$/YR/  # ^iên --> YR
+    ### ~an, ên
+    # seems nothing  # ÿüan --> YG
+    - xform/^wan$/WG/  # wuan --> WG
+    - xform/uan$/G/  # üan, uan --> G
+    - xform/^yan$/YR/  # yiên --> YR
     - xform/ian$/R/  # iên --> R
     - xform/an$/F/  # an --> F
     ### ~ang
-    - xform/^yang$/YS/  # ^iang --> YS
-    - xform/^wang$/WS/  # ^uang --> WS
+    - xform/^yang$/YS/  # yiang --> YS
+    - xform/^wang$/WS/  # wuang --> WS
     - xform/[iu]ang$/S/  # iang, uang --> S
     - xform/ang$/D/  # ang --> D
     ### ~o
-    # seems nothing  # ^uo --> WO
-    # seems nothing  # ^io --> YO
+    # seems nothing  # wuo --> WO
+    # seems nothing  # yio --> YO
     - xform/uo$/O/  # o, io, uo --> O
     ### ~ou
-    - xform/^you$/YN/  # ^iou --> YN
+    - xform/^you$/YN/  # yiou --> YN
     - xform/iu$/N/  # iou --> N
     - xform/ou$/H/  # ou --> H
     ### ~ong
-    - xform/^yong$/YT/  # ^iong --> YT
+    - xform/^yong$/YT/  # yiong --> YT
     - xform/i?ong$/T/  # iong, ong --> T
     ### ~e
     # seems nothing  # e --> E
     ### ~en (üin)
-    - xform/^yun$/YP/  # ^üin --> YP
-    - xform/^wen$/WP/  # ^uen --> WP
+    - xform/^yun$/YP/  # ÿüin --> YP
+    - xform/^wen$/WP/  # wuen --> WP
     - xform/un$/P/  # üin, uen --> P
     - xform/en$/J/  # en --> J
     ### ~eng
-    - xform/^weng$/WK/  # ^ueng --> WK
+    - xform/^weng$/WK/  # wueng --> WK
     - xform/eng$/K/  # eng, ueng --> K
     ### ~ê
-    - xform/^ye$/YC/  # ^iê --> YC
+    - xform/^ye$/YC/  # yiê --> YC
     - xform/ie$/C/  # iê --> C
-    - xform/^yue$/YX/  # ^üê --> YX
+    - xform/^yue$/YX/  # ÿüê --> YX
     - xform/[uv]e$/X/  # üê --> X
     ### ~êi
-    - xform/^wei$/WV/  # ^uêi --> WV
+    - xform/^wei$/WV/  # wuêi --> WV
     - xform/ui$/V/  # uêi --> V
     - xform/ei$/Y/  # êi --> Y
     ### ~i, ɿ, ʅ, er
-    # seems nothing  # ^i --> YI
+    # seems nothing  # yi --> YI
     # seems nothing  # i, ɿ, ʅ --> I
     - xform/er$/I/  # er --> I
     ### ~in
     # (üin --> ~en)
-    # seems nothing  # ^in --> YM
+    # seems nothing  # yin --> YM
     - xform/in$/M/  # in --> M
     ### ~ing
-    # seems nothing  # ^ing --> YL
+    # seems nothing  # ying --> YL
     - xform/ing$/L/  # ing --> L
     ### ~u
     # seems nothing  # u --> U
     ### ~ü
-    - xform/^yu$/YV/  # ^ü --> YV
+    - xform/^yu$/YV/  # ÿü --> YV
     - xform/^([jqx])u$/$1V/  # ü --> V
     ### ~m, n, ng
-    - xform/^m$/OM/  # ^m --> OM
-    - xform/^n$/ON/  # ^n --> ON
-    - xform/^ng$/OB/  # ^ng --> OB
+    - xform/^m$/OM/  # Øm --> OM
+    - xform/^n$/ON/  # Øn --> ON
+    - xform/^ng$/OB/  # Øng --> OB
     # 转小写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 
@@ -150,86 +183,86 @@ translator:
     - "xform/(^|[ '])E/$1sh/"
     # 韵母
     ### ~a
-    - xform/WQ/^ua/  # WQ --> ^ua
-    - xform/YQ/^ia/  # YQ --> ^ia
+    - xform/WQ/Wua/  # WQ --> Wua
+    - xform/YQ/Yia/  # YQ --> Yia
     - xform/([GKHZCShR])Q/$1ua/  # Q --> ua
     - xform/(\w)Q/$1ia/  # Q --> ia
     - xform/(\w)A/$1a/  # A --> a
     ### ~ai
-    - xform/WX/^uai/  # WX --> ^uai
+    - xform/WX/Wuai/  # WX --> Wuai
     - xform/([GKHZCShR])X/$1uai/  # X --> uai
     - xform/(\w)Z/$1ai/  # ai --> Z
     ### ~au (ng)
-    - xform/YB/^iau/  # YB --> iau
-    - xform/OB/^ng/  # OB --> ^ng
+    - xform/YB/Yiau/  # YB --> Yiau
+    - xform/OB/Øng/  # OB --> Øng
     - xform/(\w)B/$1iau/  # B --> iau
     - xform/(\w)W/$1au/  # W --> au
-    ### ~an, ên, aên
-    - xform/WG/^uan/  # WG --> ^uan
-    - xform/YG/^üaên/  # YG --> ^üaên
+    ### ~an, ên
+    - xform/WG/Wuan/  # WG --> Wuan
+    - xform/YG/Ÿüan/  # YG --> Ÿüan
     - xform/([BPMFDTNLGKHZCShR])G/$1uan/  # G --> uan
-    - xform/(\w)G/$1üaên/  # G --> üaên
-    - xform/YR/^iên/  # YR --> ^iên
+    - xform/(\w)G/$1üan/  # G --> üan
+    - xform/YR/Yiên/  # YR --> Yiên
     - xform/(\w)R/$1iên/  # R --> iên
     - xform/(\w)F/$1an/  # F --> an
     ### ~ang
-    - xform/WS/^uang/  # WS --> ^uang
-    - xform/YS/^iang/  # YS --> ^iang
+    - xform/WS/Wuang/  # WS --> Wuang
+    - xform/YS/Yiang/  # YS --> Yiang
     - xform/([GKHZCShR])S/$1uang/  # S --> uang
     - xform/(\w)S/$1iang/  # S --> iang
     - xform/(\w)D/$1ang/  # D --> ang
     ### ~o
-    - xform/WO/^uo/  # WO --> ^uo
-    - xform/YO/^io/  # YO --> ^io
+    - xform/WO/Wuo/  # WO --> Wuo
+    - xform/YO/Yio/  # YO --> Yio
     - xform/([BPMFDTNLGKHZCShR])O/$1uo/  # O --> uo
     - xform/(\w)O/$1o/  # O --> o
     ### ~ou (n)
-    - xform/YN/^iou/  # YN --> ^iou
-    - xform/ON/^n/  # ON --> ^n
+    - xform/YN/Yiou/  # YN --> Yiou
+    - xform/ON/Øn/  # ON --> Øn
     - xform/(\w)N/$1iou/  # N --> iou
     - xform/(\w)H/$1ou/  # H --> ou
     ### ~ong
-    - xform/YT/^iong/  # YT --> ^iong
+    - xform/YT/Yiong/  # YT --> Yiong
     - xform/([JQX])T/$1iong/  # T --> iong
     - xform/(\w)T/$1ong/  # T --> ong
     ### ~e
     - xform/(\w)E/$1e/  # E --> e
     ### ~en (üin)
-    - xform/YP/^üin/  # YP --> ^üin
-    - xform/WP/^uen/  # WP --> ^uen
+    - xform/YP/Ÿüin/  # YP --> Ÿüin
+    - xform/WP/Wuen/  # WP --> Wuen
     - xform/([JQX])P/$1üin/  # P --> üin
     - xform/(\w)P/$1uen/  # P --> uen
     - xform/(\w)J/$1en/  # J --> en
     ### ~eng
-    - xform/WK/^ueng/  # WK --> ^ueng
+    - xform/WK/Wueng/  # WK --> Wueng
     - xform/(\w)K/$1eng/  # K --> eng
     ### ~ê
-    - xform/YC/^iê/  # YC --> ^iê
+    - xform/YC/Yiê/  # YC --> Yiê
     - xform/(\w)C/$1iê/  # C --> iê
-    - xform/YX/^üê/  # YX --> ^üê
+    - xform/YX/Ÿüê/  # YX --> Ÿüê
     - xform/(\w)X/$1üê/  # X --> üê
     ### ~êi (ü)
-    - xform/YV/^ü/  # YV --> ^ü
-    - xform/WV/^uêi/  # WV --> ^uêi
+    - xform/YV/Ÿü/  # YV --> Ÿü
+    - xform/WV/Wuêi/  # WV --> Wuêi
     - xform/([NLJQX])V/$1ü/  # V --> ü
     - xform/(\w)V/$1uêi/  # V --> uêi
     - xform/(\w)Y/$1êi/  # Y --> êi
     ### ~i, ɿ, ʅ, er
-    - xform/YI/^i/ # YI --> ^i
-    - xform/OI/^er/  # OI --> ^er
+    - xform/YI/Yi/ # YI --> Yi
+    - xform/OI/Øer/  # OI --> Øer
     - xform/([ZCS])I/$1ɿ/  # I --> ɿ
     - xform/([hR])I/$1ʅ/  # I --> ʅ
     - xform/(\w)I/$1i/  # I --> i
     ### ~in (m)
     # (üin --> ~en)
-    - xform/YM/^in/  # M --> in
-    - xform/OM/^m/  # OM --> ^m
+    - xform/YM/Yin/  # M --> Yin
+    - xform/OM/Øm/  # OM --> Øm
     - xform/(\w)M/$1in/  # M --> in
     ### ~ing
-    - xform/YL/^ing/  # YL --> ^ing
+    - xform/YL/Ying/  # YL --> Ying
     - xform/(\w)L/$1ing/  # L --> ing
     ### ~u
-    - xform/WU/^u/  # WU --> ^u
+    - xform/WU/Wu/  # WU --> Wu
     - xform/(\w)U/$1u/  # U --> u
     ### ~ü
     # (ü --> ~êi)
@@ -238,13 +271,13 @@ translator:
     # (n --> ~ou)
     # (ng --> ~au)
     # 零声母
-    - xform/O([\wê])/^$1/
+    - xform/O([\wê])/Ø$1/
     # 首字输入
-    - xform/(^|[ '])W/^(合)/
-    - xform/(^|[ '])Y/^(齐撮)/
-    - xform/(^|[ '])O/^(开)/
+    - xform/(^|[ '])W/W/
+    - xform/(^|[ '])Y/Y(Ÿ)/
+    - xform/(^|[ '])O/Ø/
     # 声母大写
-    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
+    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZŸ/abcdefghijklmnopqrstuvwxyzÿ/
 
 # 将【拼音】转为【可视串】
 reverse_lookup:
@@ -257,49 +290,48 @@ reverse_lookup:
     - xlit/hspnz/一丨丿丶乙/
   allow_erase_comment: true
   comment_format:
-    # it only work once, need to be update ("jian xian" -> "jiên xian" but not "jiên xiên")
-    - xform/(^|[ '])wa($|[ '])/$1^ua$2/
-    - xform/(^|[ '])ya($|[ '])/$1^ia$2/
-    - xform/(^|[ '])wai($|[ '])/$1^uai$2/
-    - xform/(^|[ '])yao($|[ '])/$1^iau$2/
+    - xform/(^|[ '])wa($|[ '])/$1wua$2/
+    - xform/(^|[ '])ya($|[ '])/$1yia$2/
+    - xform/(^|[ '])wai($|[ '])/$1wuai$2/
+    - xform/(^|[ '])yao($|[ '])/$1yiau$2/
     - xform/(^|[ '])(\w+)ao($|[ '])/$1$2au$3/
-    - xform/(^|[ '])wan($|[ '])/$1^uan$2/
-    - xform/(^|[ '])yuan($|[ '])/$1^üaên$2/
-    - xform/(^|[ '])([jqx])uan($|[ '])/$1$2üaên$3/
-    - xform/(^|[ '])yan($|[ '])/$1^iên$2/
+    - xform/(^|[ '])wan($|[ '])/$1wuan$2/
+    - xform/(^|[ '])yuan($|[ '])/$1ÿüan$2/
+    - xform/(^|[ '])([jqx])uan($|[ '])/$1$2üan$3/
+    - xform/(^|[ '])yan($|[ '])/$1yiên$2/
     - xform/(^|[ '])(\w+)ian($|[ '])/$1$2iên$3/
-    - xform/(^|[ '])wang($|[ '])/$1^uang$2/
-    - xform/(^|[ '])yang($|[ '])/$1^iang$2/
-    - xform/(^|[ '])yo($|[ '])/$1^io$2/
-    - xform/(^|[ '])wo($|[ '])/$1^uo$2/
+    - xform/(^|[ '])wang($|[ '])/$1wuang$2/
+    - xform/(^|[ '])yang($|[ '])/$1yiang$2/
+    - xform/(^|[ '])yo($|[ '])/$1yio$2/
+    - xform/(^|[ '])wo($|[ '])/$1wuo$2/
     - xform/(^|[ '])([BPMF])o($|[ '])/$1$2uo$3/
-    - xform/(^|[ '])you($|[ '])/$1^iou$2/
+    - xform/(^|[ '])you($|[ '])/$1yiou$2/
     - xform/(^|[ '])(\w+)iu($|[ '])/$1$2iou$3/
-    - xform/(^|[ '])yong($|[ '])/$1^iong$2/
-    - xform/(^|[ '])yun($|[ '])/$1^üin$2/
-    - xform/(^|[ '])wen($|[ '])/$1^uen$2/
+    - xform/(^|[ '])yong($|[ '])/$1yiong$2/
+    - xform/(^|[ '])yun($|[ '])/$1ÿüin$2/
+    - xform/(^|[ '])wen($|[ '])/$1wuen$2/
     - xform/(^|[ '])([jqx])un($|[ '])/$1$2üin$3/
     - xform/(^|[ '])(\w+)un($|[ '])/$1$2uen$3/
-    - xform/(^|[ '])weng($|[ '])/$1^ueng$2/
+    - xform/(^|[ '])weng($|[ '])/$1wueng$2/
     - xform/(^|[ '])ye($|[ '])/$1yê$2/
     - xform/(^|[ '])(\w+)ie($|[ '])/$1$2iê$3/
-    - xform/(^|[ '])yue($|[ '])/$1^üê$2/
+    - xform/(^|[ '])yue($|[ '])/$1ÿüê$2/
     - xform/(^|[ '])(\w+)[uv]e($|[ '])/$1$2üê$3/
-    - xform/(^|[ '])wei($|[ '])/$1^uêi$2/
+    - xform/(^|[ '])wei($|[ '])/$1wuêi$2/
     - xform/(^|[ '])(\w+)ui($|[ '])/$1$2uêi$3/
     - xform/(^|[ '])(\w+)ei($|[ '])/$1$2êi$3/
-    - xform/(^|[ '])yi($|[ '])/$1^i$2/
+    - xform/(^|[ '])yi($|[ '])/$1yi$2/
     - xform/(^|[ '])([zcs])i($|[ '])/$1$2ɿ$3/
     - xform/(^|[ '])([zcs]h|r)i($|[ '])/$1$2ʅ$3/
-    - xform/(^|[ '])er($|[ '])/$1^er$2/
-    - xform/(^|[ '])yin($|[ '])/$1^in$2/
-    - xform/(^|[ '])ying($|[ '])/$1^ing$2/
-    - xform/(^|[ '])wu($|[ '])/$1^u$2/
-    - xform/(^|[ '])yu($|[ '])/$1^ü$2/
+    - xform/(^|[ '])er($|[ '])/$1Øer$2/
+    - xform/(^|[ '])yin($|[ '])/$1yin$2/
+    - xform/(^|[ '])ying($|[ '])/$1ying$2/
+    - xform/(^|[ '])wu($|[ '])/$1wu$2/
+    - xform/(^|[ '])yu($|[ '])/$1ÿü$2/
     - xform/(^|[ '])([nl])v($|[ '])/$1$2ü$3/
     - xform/(^|[ '])([jqx])u($|[ '])/$1$2ü$3/
-    - xform/(^|[ '])([aoe].*)($|[ '])/$1^$2$3/
-    - xform/(^|[ '])(m|n|ng)($|[ '])/$1^$2$3/
+    - xform/(^|[ '])([aoe].*)($|[ '])/$1Ø$2$3/
+    - xform/(^|[ '])(m|n|ng)($|[ '])/$1Ø$2$3/
 
 punctuator:
   import_preset: symbols
