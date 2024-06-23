@@ -46,7 +46,6 @@ engine:
     - uniquifier
     - simplifier
 
-
 # 注意，在 y w (ÿ) 开头的内容中，有两种罗马字方案，分别是
 #   [真开头] 鸭 ya = y + a, 音 yn = y + n，温 wen = w + en，晕 ÿn = ÿ + n；（介音直接形变作开头）
 #   [伪开头] 鸭 yia = y + ia, 音 yin = y + in，温 wuen = w + uen，晕 ÿün = ÿ + ün。（一个形式字符和一个真介音）
@@ -79,7 +78,8 @@ engine:
 # weng  wueng 真
 # yng   ying  伪 8  原因：介音+n/ng
 
-# 将【拼音】转为【输入串】
+# 将【词库串】转为【输入串】
+# 【词库串】就是 dict 里的字符串，这里是拼音
 speller:
   alphabet: abcdefghijklmnopqrstuvwxyz
   delimiter: " '"
@@ -149,7 +149,7 @@ speller:
     - xform/ui$/V/  # uêi --> V
     - xform/ei$/Y/  # êi --> Y
     ### ~i, ɿ, ʅ, er
-    # seems nothing  # yi --> YI
+    # seems nothing  # yi --> yi
     # seems nothing  # i, ɿ, ʅ --> I
     - xform/er$/I/  # er --> I
     ### ~in
@@ -183,86 +183,86 @@ translator:
     - "xform/(^|[ '])E/$1sh/"
     # 韵母
     ### ~a
-    - xform/WQ/Wua/  # WQ --> Wua
-    - xform/YQ/Yia/  # YQ --> Yia
+    - xform/WQ/wua/  # WQ --> wua
+    - xform/YQ/yia/  # YQ --> yia
     - xform/([GKHZCShR])Q/$1ua/  # Q --> ua
     - xform/(\w)Q/$1ia/  # Q --> ia
     - xform/(\w)A/$1a/  # A --> a
     ### ~ai
-    - xform/WX/Wuai/  # WX --> Wuai
+    - xform/WX/wuai/  # WX --> wuai
     - xform/([GKHZCShR])X/$1uai/  # X --> uai
     - xform/(\w)Z/$1ai/  # ai --> Z
     ### ~au (ng)
-    - xform/YB/Yiau/  # YB --> Yiau
+    - xform/YB/yiau/  # YB --> yiau
     - xform/OB/Øng/  # OB --> Øng
     - xform/(\w)B/$1iau/  # B --> iau
     - xform/(\w)W/$1au/  # W --> au
     ### ~an, ên
-    - xform/WG/Wuan/  # WG --> Wuan
-    - xform/YG/Ÿüan/  # YG --> Ÿüan
+    - xform/WG/wuan/  # WG --> wuan
+    - xform/YG/ÿüan/  # YG --> ÿüan
     - xform/([BPMFDTNLGKHZCShR])G/$1uan/  # G --> uan
     - xform/(\w)G/$1üan/  # G --> üan
-    - xform/YR/Yiên/  # YR --> Yiên
+    - xform/YR/yiên/  # YR --> yiên
     - xform/(\w)R/$1iên/  # R --> iên
     - xform/(\w)F/$1an/  # F --> an
     ### ~ang
-    - xform/WS/Wuang/  # WS --> Wuang
-    - xform/YS/Yiang/  # YS --> Yiang
+    - xform/WS/wuang/  # WS --> wuang
+    - xform/YS/yiang/  # YS --> yiang
     - xform/([GKHZCShR])S/$1uang/  # S --> uang
     - xform/(\w)S/$1iang/  # S --> iang
     - xform/(\w)D/$1ang/  # D --> ang
     ### ~o
-    - xform/WO/Wuo/  # WO --> Wuo
-    - xform/YO/Yio/  # YO --> Yio
+    - xform/WO/wuo/  # WO --> wuo
+    - xform/YO/yio/  # YO --> yio
     - xform/([BPMFDTNLGKHZCShR])O/$1uo/  # O --> uo
     - xform/(\w)O/$1o/  # O --> o
     ### ~ou (n)
-    - xform/YN/Yiou/  # YN --> Yiou
+    - xform/YN/yiou/  # YN --> yiou
     - xform/ON/Øn/  # ON --> Øn
     - xform/(\w)N/$1iou/  # N --> iou
     - xform/(\w)H/$1ou/  # H --> ou
     ### ~ong
-    - xform/YT/Yiong/  # YT --> Yiong
+    - xform/YT/yiong/  # YT --> yiong
     - xform/([JQX])T/$1iong/  # T --> iong
     - xform/(\w)T/$1ong/  # T --> ong
     ### ~e
     - xform/(\w)E/$1e/  # E --> e
     ### ~en (üin)
-    - xform/YP/Ÿüin/  # YP --> Ÿüin
-    - xform/WP/Wuen/  # WP --> Wuen
+    - xform/YP/ÿüin/  # YP --> ÿüin
+    - xform/WP/wuen/  # WP --> wuen
     - xform/([JQX])P/$1üin/  # P --> üin
     - xform/(\w)P/$1uen/  # P --> uen
     - xform/(\w)J/$1en/  # J --> en
     ### ~eng
-    - xform/WK/Wueng/  # WK --> Wueng
+    - xform/WK/wueng/  # WK --> wueng
     - xform/(\w)K/$1eng/  # K --> eng
     ### ~ê
-    - xform/YC/Yiê/  # YC --> Yiê
+    - xform/YC/yiê/  # YC --> yiê
     - xform/(\w)C/$1iê/  # C --> iê
-    - xform/YX/Ÿüê/  # YX --> Ÿüê
+    - xform/YX/ÿüê/  # YX --> ÿüê
     - xform/(\w)X/$1üê/  # X --> üê
     ### ~êi (ü)
-    - xform/YV/Ÿü/  # YV --> Ÿü
-    - xform/WV/Wuêi/  # WV --> Wuêi
+    - xform/YV/ÿü/  # YV --> ÿü
+    - xform/WV/wuêi/  # WV --> wuêi
     - xform/([NLJQX])V/$1ü/  # V --> ü
     - xform/(\w)V/$1uêi/  # V --> uêi
     - xform/(\w)Y/$1êi/  # Y --> êi
     ### ~i, ɿ, ʅ, er
-    - xform/YI/Yi/ # YI --> Yi
+    - xform/YI/yi/ # YI --> yi
     - xform/OI/Øer/  # OI --> Øer
     - xform/([ZCS])I/$1ɿ/  # I --> ɿ
     - xform/([hR])I/$1ʅ/  # I --> ʅ
     - xform/(\w)I/$1i/  # I --> i
     ### ~in (m)
     # (üin --> ~en)
-    - xform/YM/Yin/  # M --> Yin
+    - xform/YM/yin/  # M --> yin
     - xform/OM/Øm/  # OM --> Øm
     - xform/(\w)M/$1in/  # M --> in
     ### ~ing
-    - xform/YL/Ying/  # YL --> Ying
+    - xform/YL/ying/  # YL --> ying
     - xform/(\w)L/$1ing/  # L --> ing
     ### ~u
-    - xform/WU/Wu/  # WU --> Wu
+    - xform/WU/wu/  # WU --> wu
     - xform/(\w)U/$1u/  # U --> u
     ### ~ü
     # (ü --> ~êi)
@@ -277,9 +277,9 @@ translator:
     - xform/(^|[ '])Y/Y(Ÿ)/
     - xform/(^|[ '])O/Ø/
     # 声母大写
-    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZŸ/abcdefghijklmnopqrstuvwxyzÿ/
+    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZŸØ/abcdefghijklmnopqrstuvwxyzÿØ/
 
-# 将【拼音】转为【可视串】
+# 将【词库串】转为【可视串】（用来作笔画输入的可视提示）
 reverse_lookup:
   dictionary: stroke
   enable_completion: true
