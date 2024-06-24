@@ -271,11 +271,11 @@ translator:
     # (n --> ~ou)
     # (ng --> ~au)
     # 零声母
-    - xform/O([\wê])/Ø$1/
+    - xform/O([\wüê])/Ø$1/
     # 首字输入
-    - xform/(^|[ '])W/W/
-    - xform/(^|[ '])Y/Y(Ÿ)/
-    - xform/(^|[ '])O/Ø/
+    - xform/(^|[ '])W/$1W/
+    - xform/(^|[ '])Y/$1Y(Ÿ)/
+    - xform/(^|[ '])O/$1Ø/
     # 声母大写
     - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZŸØ/abcdefghijklmnopqrstuvwxyzÿØ/
 
